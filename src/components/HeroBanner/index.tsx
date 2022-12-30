@@ -11,20 +11,20 @@ export function HeroBanner() {
                     <p>Com o Coffee Delivery você recebe seu café onde estiver, a qualquer hora</p>
                     <IconContainer>
                         <IconContent>
-                            <IconItem bgColor="#C47F17">
+                            <IconItem bgSvgColor="#C47F17">
                                 <ShoppingCart size={32} weight="fill" /><span>Compra simples e segura</span>
                             </IconItem>
-                            <IconItem bgColor="#DBAC2C
+                            <IconItem bgSvgColor="#DBAC2C
 ">
                                 <Timer size={32} weight="fill" /><span>Entrega rápida e rastreada</span>
                             </IconItem>
                         </IconContent>
 
                         <IconContent>
-                            <IconItem bgColor="#574F4D">
+                            <IconItem bgSvgColor="#574F4D">
                                 <Package size={32} weight="fill" /><span>Embalagem mantém o café intacto</span>
                             </IconItem>
-                            <IconItem bgColor="#8047F8">
+                            <IconItem bgSvgColor="#8047F8">
                                 <Coffee size={32} weight="fill" /><span>O café chega fresquinho até você</span>
                             </IconItem>
                         </IconContent>

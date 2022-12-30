@@ -55,7 +55,7 @@ export const IconContent = styled.div`
 `
 
 interface IconProps {
-    bgColor?: string
+    bgSvgColor?: string
 }
 
 export const IconItem = styled.div<IconProps>`
@@ -71,7 +71,7 @@ export const IconItem = styled.div<IconProps>`
         padding: 8px;
         color: white;
         border-radius: 50%;
-        background-color: ${props => props.bgColor}
+        background-color: ${props => props.bgSvgColor}
     }
 
 `

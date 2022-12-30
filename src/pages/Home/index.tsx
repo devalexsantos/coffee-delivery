@@ -1,9 +1,11 @@
 import { HeroBanner } from "../../components/HeroBanner";
+import { ShowCase } from "../../components/Showcase";
 
 export function Home() {
     return (
-        <div>
+        <main>
             <HeroBanner />
-        </div>
+            <ShowCase />
+        </main>
     )
 }

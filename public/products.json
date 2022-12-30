@@ -1,0 +1,23 @@
+[
+    {
+        "id": "01",
+        "img": "./products/img/expresso-tradicional.png",
+        "tags": [
+            "Tradicional"
+        ],
+        "title": "Expresso Tradicional",
+        "description": "O tradicional café feito com água quente e grãos moídos",
+        "price": "9.90"
+    },
+    {
+        "id": "02",
+        "img": "./products/img/expresso-americano.png",
+        "tags": [
+            "Tradicional",
+            "Gelado"
+        ],
+        "title": "Expresso Americano",
+        "description": "Expresso diluído, menos intenso que o tradicional",
+        "price": "13.50"
+    }
+]
