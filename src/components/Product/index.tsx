@@ -1,8 +1,11 @@
 import { ProcutTagsContainer, ProductCartButton, ProductContainer, ProductDescription, ProductFooter, ProductPrice, ProductQuantity } from "./style"
 import exampleProductCoffe from "../../assets/coffee-example-product.png"
 import { Minus, Plus, ShoppingCart } from "phosphor-react"
+import { ShopCartContext } from "../../contexts/ShopCartContext"
+import { useContext, useEffect, useState } from "react"
 
-interface Products {
+
+export interface ProductsType {
     id: number
     img: string
     tags: string[]
@@ -12,7 +15,30 @@ interface Products {
 }
 
 
-export const Product = ({ id, description, img, price, tags, title }: Products) => {
+export const Product = ({ id, description, img, price, tags, title }: ProductsType) => {
+
+    const { productsCart, addProductsInCart, removeProductsInCart } = useContext(ShopCartContext)
+
+    const [qtdInCart, setQtdInCart] = useState(0)
+
+    function handleAddProductsInCart(id: number, qtd: number) {
+        addProductsInCart(id, qtd)
+    }
+
+    function handleRemoveProductsInCart(id: number) {
+        removeProductsInCart(id)
+    }
+
+    useEffect(() => {
+        const findProduct = productsCart.find(product => product.id === id)
+
+        if (findProduct) {
+            setQtdInCart(findProduct.qtd)
+        }
+    }, [productsCart])
+
+
+
     return (
         <ProductContainer>
             <img src={img} />
@@ -32,9 +58,9 @@ export const Product = ({ id, description, img, price, tags, title }: Products) 
                     <pre>R$</pre><span>{price}</span>
                 </ProductPrice>
                 <ProductQuantity>
-                    <button><Minus size={14} color="#8047F8" weight="bold" /></button>
-                    <span> 1 </span>
-                    <button><Plus size={14} color="#8047F8" weight="bold" /></button>
+                    <button onClick={(e) => handleRemoveProductsInCart(id)}><Minus size={14} color="#8047F8" weight="bold" /></button>
+                    <span>{qtdInCart}</span>
+                    <button onClick={(e) => handleAddProductsInCart(id, 1)}><Plus size={14} color="#8047F8" weight="bold" /></button>
                 </ProductQuantity>
                 <ProductCartButton>
                     <button><ShoppingCart size={20} color="#ffffff" weight="fill" /></button>

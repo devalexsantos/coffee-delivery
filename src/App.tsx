@@ -1,4 +1,5 @@
 import { BrowserRouter } from "react-router-dom"
+import { ShopCartContextProvider } from "./contexts/ShopCartContext"
 import { Router } from "./Router"
 import { GlobalStyle } from "./styles/global"
 
@@ -6,8 +7,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Router />
-      <GlobalStyle/>
+      <ShopCartContextProvider>
+        <Router />
+      </ShopCartContextProvider>
+      <GlobalStyle />
     </BrowserRouter>
   )
 }

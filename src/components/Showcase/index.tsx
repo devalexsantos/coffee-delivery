@@ -4,7 +4,7 @@ import { Product } from "../Product"
 import { ShowcaseContainer, ShowcaseItems } from "./style"
 
 interface Products {
-    id: number
+    id: string
     img: string
     tags: string[]
     title: string
@@ -13,6 +13,7 @@ interface Products {
 }
 
 export const ShowCase = () => {
+
 
     const [isLoading, setIsLoading] = useState(false)
     const [products, setProducts] = useState<Products[]>()
@@ -40,7 +41,7 @@ export const ShowCase = () => {
                     products ?
                         products.map((product, index) => {
                             return <Product
-                                id={product.id}
+                                id={parseInt(product.id)}
                                 key={index}
                                 img={product.img}
                                 tags={product.tags}
