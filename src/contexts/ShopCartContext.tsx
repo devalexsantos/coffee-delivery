@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useState, useEffect } from "react";
 
 
 interface ProductTypeCart {
@@ -8,6 +8,7 @@ interface ProductTypeCart {
 
 interface ShopCartContextTye {
     productsCart: ProductTypeCart[]
+    totalProducts: () => number
     addProductsInCart: (id: number, qtd: number) => void
     removeProductsInCart: (id: number) => void
 }
@@ -23,6 +24,19 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
         id: 0,
         qtd: 0
     }])
+
+    function totalProducts() {
+        let total = 0;
+
+        productsCart.map(product => {
+            total = total + product.qtd
+        })
+
+        return total;
+    }
+
+
+
 
     function addProductsInCart(id: number, qtd: number) {
         const newProductsCart = [...productsCart]
@@ -57,7 +71,7 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
 
     // console.log(productsCart)
     return (
-        <ShopCartContext.Provider value={{ productsCart, addProductsInCart, removeProductsInCart }}>
+        <ShopCartContext.Provider value={{ productsCart, totalProducts, addProductsInCart, removeProductsInCart }}>
             {children}
         </ShopCartContext.Provider>
     )

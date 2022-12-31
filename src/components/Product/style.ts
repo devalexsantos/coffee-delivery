@@ -118,6 +118,7 @@ export const ProductQuantity = styled.div`
     button {
         background: none;
         border: none;
+        cursor: pointer;
     }
 
     span {
@@ -135,5 +136,13 @@ export const ProductCartButton = styled.div`
         border-radius: 6px;
         border: none;
         background-color: #4B2995;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #8047F8;
+        svg {
+            color: #ffffff
+        }
     }
 `

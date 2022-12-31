@@ -21,9 +21,30 @@ export const CartButton = styled.button`
     background-color: #F1E9C9;
     border: none;
     border-radius: 6px;
+    position: relative;
 
     svg {
         color: #C47F17;
+    }
+
+    span {
+        position: absolute;
+        right: -10px;
+        top: -10px;
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 130%;
+        color: #FFFFFF;
+        background: #C47F17;
+        border-radius: 100%;
+        background-size: cover;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 `
 

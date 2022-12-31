@@ -1,5 +1,6 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { ShopCartContext } from "../../contexts/ShopCartContext"
 import { Product } from "../Product"
 import { ShowcaseContainer, ShowcaseItems } from "./style"
 
@@ -13,8 +14,6 @@ interface Products {
 }
 
 export const ShowCase = () => {
-
-
     const [isLoading, setIsLoading] = useState(false)
     const [products, setProducts] = useState<Products[]>()
 
