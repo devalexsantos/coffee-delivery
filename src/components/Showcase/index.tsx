@@ -10,7 +10,7 @@ interface Products {
     tags: string[]
     title: string
     description: string
-    price: number
+    price: string
 }
 
 export const ShowCase = () => {
