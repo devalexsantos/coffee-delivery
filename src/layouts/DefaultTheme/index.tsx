@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { CartButton, HeaderContainer, HeaderContent, MainContent } from "./style";
 import { ShoppingCart } from 'phosphor-react'
 
@@ -8,16 +8,18 @@ import { ShopCartContext } from "../../contexts/ShopCartContext";
 
 export function DefaultTheme() {
 
-    const { totalProducts } = useContext(ShopCartContext)
+    const { totalProductsInCart } = useContext(ShopCartContext)
 
     return (
         <>
             <HeaderContainer>
                 <HeaderContent>
-                    <img src={coffeeLogo} width={85} height={40} alt="Copo roxo com uma seta pra cima e o nome Coffee Delivery" />
+                    <Link to="/"><img src={coffeeLogo} width={85} height={40} alt="Copo roxo com uma seta pra cima e o nome Coffee Delivery" /></Link>
                     <CartButton>
-                        <ShoppingCart size={22} weight="fill" />
-                        <span>{totalProducts()}</span>
+                        <Link to="/cart">
+                            <ShoppingCart size={22} weight="fill" />
+                            <span>{totalProductsInCart}</span>
+                        </Link>
                     </CartButton>
                 </HeaderContent>
             </HeaderContainer>

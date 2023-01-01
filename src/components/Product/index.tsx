@@ -11,7 +11,7 @@ export interface ProductsType {
     tags: string[]
     title: string
     description: string
-    price: number
+    price: string
 }
 
 
@@ -21,8 +21,8 @@ export const Product = ({ id, description, img, price, tags, title }: ProductsTy
 
     const [qtdInCart, setQtdInCart] = useState(0)
 
-    function handleAddProductsInCart(id: number, qtd: number) {
-        addProductsInCart(id, qtd)
+    function handleAddProductsInCart(id: number, img: string, title: string, price: string) {
+        addProductsInCart(id, img, title, price)
     }
 
     function handleRemoveProductsInCart(id: number) {
@@ -31,10 +31,13 @@ export const Product = ({ id, description, img, price, tags, title }: ProductsTy
 
     useEffect(() => {
         const findProduct = productsCart.find(product => product.id === id)
-
         if (findProduct) {
             setQtdInCart(findProduct.qtd)
+        } else {
+            setQtdInCart(0)
         }
+
+        console.log(productsCart)
     }, [productsCart])
 
 
@@ -60,7 +63,7 @@ export const Product = ({ id, description, img, price, tags, title }: ProductsTy
                 <ProductQuantity>
                     <button onClick={(e) => handleRemoveProductsInCart(id)}><Minus size={14} color="#8047F8" weight="bold" /></button>
                     <span>{qtdInCart}</span>
-                    <button onClick={(e) => handleAddProductsInCart(id, 1)}><Plus size={14} color="#8047F8" weight="bold" /></button>
+                    <button onClick={(e) => handleAddProductsInCart(id, img, title, price)}><Plus size={14} color="#8047F8" weight="bold" /></button>
                 </ProductQuantity>
                 <ProductCartButton>
                     <button><ShoppingCart size={20} color="#ffffff" weight="fill" /></button>

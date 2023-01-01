@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const ShowcaseContainer = styled.div`
     width: 100%;
-    width: 100%;
     max-width: 1124px;
     padding-left: 1rem;
     padding-right: 1rem;

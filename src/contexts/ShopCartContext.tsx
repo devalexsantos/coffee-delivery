@@ -3,14 +3,18 @@ import { ReactNode, createContext, useState, useEffect } from "react";
 
 interface ProductTypeCart {
     id: number,
-    qtd: number
+    qtd: number,
+    img: string,
+    title: string,
+    price: string
 }
 
 interface ShopCartContextTye {
-    productsCart: ProductTypeCart[]
-    totalProducts: () => number
-    addProductsInCart: (id: number, qtd: number) => void
+    productsCart: ProductTypeCart[] | []
+    totalProductsInCart: number
+    addProductsInCart: (id: number, img: string, title: string, price: string) => void
     removeProductsInCart: (id: number) => void
+    deleteProductsInCart: (id: number) => void
 }
 
 export const ShopCartContext = createContext({} as ShopCartContextTye)
@@ -20,36 +24,37 @@ interface ShopCartContextProviderProps {
 }
 
 export function ShopCartContextProvider({ children }: ShopCartContextProviderProps) {
-    const [productsCart, setProductsCart] = useState([{
-        id: 0,
-        qtd: 0
-    }])
+    const [productsCart, setProductsCart] = useState<ProductTypeCart[] | []>([])
+    const [totalProductsInCart, setTotalProductsInCart] = useState(0)
 
-    function totalProducts() {
+
+    useEffect(() => {
         let total = 0;
 
-        productsCart.map(product => {
-            total = total + product.qtd
-        })
+        if (productsCart) {
+            productsCart.map(product => {
+                total = total + product.qtd
+            })
+        }
 
-        return total;
-    }
+        setTotalProductsInCart(total)
+    }, [productsCart])
 
 
 
 
-    function addProductsInCart(id: number, qtd: number) {
+    function addProductsInCart(id: number, img: string, title: string, price: string) {
         const newProductsCart = [...productsCart]
-
         const findProduct = newProductsCart.find((product) => product.id === id)
 
         if (findProduct) {
             findProduct.qtd++
         } else {
-            newProductsCart.push({ id: id, qtd: qtd })
+            newProductsCart.push({ id: id, qtd: 1, img: img, title: title, price: price })
         }
 
         setProductsCart(newProductsCart)
+
     }
 
     function removeProductsInCart(id: number) {
@@ -58,20 +63,36 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
         const findProduct = newProductsCart.find((product) => product.id === id)
 
         if (findProduct) {
-            if (findProduct.qtd === 0) {
-                return;
+            if (findProduct.qtd === 1) {
+                const indexProduct = newProductsCart.indexOf(findProduct)
+                newProductsCart.splice(indexProduct, 1)
             } else {
                 findProduct.qtd--
             }
+
+
         }
 
         setProductsCart(newProductsCart)
     }
 
+    function deleteProductsInCart(id: number) {
+        const newProductsCart = [...productsCart]
+        const findProduct = newProductsCart.find((product) => product.id === id)
+
+        if (findProduct) {
+            const indexProduct = newProductsCart.indexOf(findProduct)
+            newProductsCart.splice(indexProduct, 1)
+        }
+
+        setProductsCart(newProductsCart)
+
+    }
+
 
     // console.log(productsCart)
     return (
-        <ShopCartContext.Provider value={{ productsCart, totalProducts, addProductsInCart, removeProductsInCart }}>
+        <ShopCartContext.Provider value={{ productsCart, totalProductsInCart, addProductsInCart, removeProductsInCart, deleteProductsInCart }}>
             {children}
         </ShopCartContext.Provider>
     )
