@@ -14,6 +14,28 @@ export const HeaderContent = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .right-side {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+    }
+
+    .btn-location {
+        padding: 9px;
+        background-color: #EBE5F9;
+        display: flex;
+        gap: 4px;
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 130%;
+        color: #4B2995;
+        border: none;
+        border-radius: 6px;
+    }
 `
 
 export const CartButton = styled.button`
