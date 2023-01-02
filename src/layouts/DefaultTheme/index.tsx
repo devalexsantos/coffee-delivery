@@ -15,12 +15,12 @@ export function DefaultTheme() {
             <HeaderContainer>
                 <HeaderContent>
                     <Link to="/"><img src={coffeeLogo} width={85} height={40} alt="Copo roxo com uma seta pra cima e o nome Coffee Delivery" /></Link>
-                    <CartButton>
-                        <Link to="/cart">
+                    <Link to="/cart">
+                        <CartButton>
                             <ShoppingCart size={22} weight="fill" />
                             <span>{totalProductsInCart}</span>
-                        </Link>
-                    </CartButton>
+                        </CartButton>
+                    </Link>
                 </HeaderContent>
             </HeaderContainer>
             <MainContent>

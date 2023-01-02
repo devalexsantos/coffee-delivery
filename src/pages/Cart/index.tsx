@@ -1,7 +1,9 @@
 import axios from "axios"
 import { MapPinLine } from "phosphor-react"
 import { useContext, useState } from "react"
+import { EmptyCart } from "../../components/EmptyCart"
 import { ProductsIncart } from "../../components/ProductsInCart"
+import { ResumeTotal } from "../../components/ResumeTotal"
 import { AddressContext } from "../../contexts/AddressContext"
 import { ShopCartContext } from "../../contexts/ShopCartContext"
 import { AddressContainer, AddressContent, CartContainer, FormContainer, HeaderAddress, LeftContainer, PaymentInfo, PaymentInfoContent, ProductsContainer, ProductsContent } from "./style"
@@ -128,11 +130,13 @@ export const Cart = () => {
                 <h2>Cafés selecionados</h2>
 
                 <ProductsContent>
-                    {productsCart.length === 0 ? <div>Nenhum produto no carrinho...</div> :
+                    {productsCart.length === 0 ? <EmptyCart /> :
                         productsCart.map((product, index) => (
                             <ProductsIncart key={index} id={product.id} img={product.img} price={product.price} title={product.title} />
                         ))
                     }
+
+                    {productsCart.length !== 0 && <ResumeTotal />}
                 </ProductsContent>
 
             </ProductsContainer>

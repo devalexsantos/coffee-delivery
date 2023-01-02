@@ -22,6 +22,7 @@ export const CartButton = styled.button`
     border: none;
     border-radius: 6px;
     position: relative;
+    cursor: pointer;
 
     svg {
         color: #C47F17;

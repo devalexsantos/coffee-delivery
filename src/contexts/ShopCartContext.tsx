@@ -12,6 +12,7 @@ interface ProductTypeCart {
 interface ShopCartContextTye {
     productsCart: ProductTypeCart[] | []
     totalProductsInCart: number
+    shippingPrice: number
     addProductsInCart: (id: number, img: string, title: string, price: string) => void
     removeProductsInCart: (id: number) => void
     deleteProductsInCart: (id: number) => void
@@ -26,6 +27,8 @@ interface ShopCartContextProviderProps {
 export function ShopCartContextProvider({ children }: ShopCartContextProviderProps) {
     const [productsCart, setProductsCart] = useState<ProductTypeCart[] | []>([])
     const [totalProductsInCart, setTotalProductsInCart] = useState(0)
+
+    const shippingPrice = (3.5);
 
 
     useEffect(() => {
@@ -91,7 +94,7 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
 
 
     return (
-        <ShopCartContext.Provider value={{ productsCart, totalProductsInCart, addProductsInCart, removeProductsInCart, deleteProductsInCart }}>
+        <ShopCartContext.Provider value={{ productsCart, totalProductsInCart, shippingPrice, addProductsInCart, removeProductsInCart, deleteProductsInCart }}>
             {children}
         </ShopCartContext.Provider>
     )

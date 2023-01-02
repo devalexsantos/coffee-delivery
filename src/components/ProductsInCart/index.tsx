@@ -14,6 +14,8 @@ export const ProductsIncart = ({ id, img, price, title }: CartProps) => {
     const { productsCart, addProductsInCart, removeProductsInCart, deleteProductsInCart } = useContext(ShopCartContext)
     const [qtdInCart, setQtdInCart] = useState(0)
 
+    const parcialPrice = parseFloat(price) * qtdInCart
+
     function handleAddProductsInCart(id: number, img: string, title: string, price: string) {
         addProductsInCart(id, img, title, price)
     }
@@ -54,7 +56,7 @@ export const ProductsIncart = ({ id, img, price, title }: CartProps) => {
                     </div>
                 </div>
                 <span className="price-product">
-                    {price}
+                    {parcialPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </span>
             </ProductContainer>
             <hr />

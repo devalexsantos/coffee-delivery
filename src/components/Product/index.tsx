@@ -3,6 +3,7 @@ import exampleProductCoffe from "../../assets/coffee-example-product.png"
 import { Minus, Plus, ShoppingCart } from "phosphor-react"
 import { ShopCartContext } from "../../contexts/ShopCartContext"
 import { useContext, useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 
 export interface ProductsType {
@@ -58,7 +59,7 @@ export const Product = ({ id, description, img, price, tags, title }: ProductsTy
             </ProductDescription>
             <ProductFooter>
                 <ProductPrice>
-                    <pre>R$</pre><span>{price}</span>
+                    <pre>R$</pre><span>{parseFloat(price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                 </ProductPrice>
                 <ProductQuantity>
                     <button onClick={(e) => handleRemoveProductsInCart(id)}><Minus size={14} color="#8047F8" weight="bold" /></button>
@@ -66,7 +67,7 @@ export const Product = ({ id, description, img, price, tags, title }: ProductsTy
                     <button onClick={(e) => handleAddProductsInCart(id, img, title, price)}><Plus size={14} color="#8047F8" weight="bold" /></button>
                 </ProductQuantity>
                 <ProductCartButton>
-                    <button><ShoppingCart size={20} color="#ffffff" weight="fill" /></button>
+                    <Link to="/cart"><button><ShoppingCart size={20} color="#ffffff" weight="fill" /></button></Link>
                 </ProductCartButton>
             </ProductFooter>
         </ProductContainer>
