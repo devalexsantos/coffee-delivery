@@ -3,7 +3,7 @@ import { createContext, ReactNode, useState } from "react";
 
 interface AddressContextTypes {
     address: AddressTypes
-    handleAddressChange: (action: string, value: string) => void
+    handleAddressChange: (action: 'CHANGE_STREET' | 'CHANGE_STREET_NUMBER' | 'CHANGE_COMPLEMENT' | 'CHANGE_DISTRICT' | 'CHANGE_CITY' | 'CHANGE_UF', value: string) => void
     changeAddress: (data: AddressTypes) => void
     handleCepChange: (cep: string) => void
     fillAddress: (data: DataAddressResultTypes) => void
