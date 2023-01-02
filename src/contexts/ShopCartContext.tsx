@@ -90,7 +90,6 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
     }
 
 
-    // console.log(productsCart)
     return (
         <ShopCartContext.Provider value={{ productsCart, totalProductsInCart, addProductsInCart, removeProductsInCart, deleteProductsInCart }}>
             {children}

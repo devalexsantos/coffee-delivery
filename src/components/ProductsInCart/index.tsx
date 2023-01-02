@@ -34,7 +34,7 @@ export const ProductsIncart = ({ id, img, price, title }: CartProps) => {
             setQtdInCart(0)
         }
 
-        console.log(productsCart)
+
     }, [productsCart])
 
 
