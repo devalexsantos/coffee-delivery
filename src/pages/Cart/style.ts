@@ -86,6 +86,11 @@ export const FormContainer = styled.div`
         border-radius: 4px;
         }
 
+        input:focus {
+            border: 1px solid #8047F8;
+            outline: none;
+        }
+
         .address-info {
             display: flex;
             flex-direction: column;

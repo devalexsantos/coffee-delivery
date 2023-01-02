@@ -13,9 +13,12 @@ interface ShopCartContextTye {
     productsCart: ProductTypeCart[] | []
     totalProductsInCart: number
     shippingPrice: number
+    paymentSelected: string | null
+    messagePaymentSelected: string
     addProductsInCart: (id: number, img: string, title: string, price: string) => void
     removeProductsInCart: (id: number) => void
     deleteProductsInCart: (id: number) => void
+    handlePaymentOption: (data: 'CREDIT_CARD' | 'DEBIT_CARD' | 'MONEY') => void
 }
 
 export const ShopCartContext = createContext({} as ShopCartContextTye)
@@ -27,6 +30,10 @@ interface ShopCartContextProviderProps {
 export function ShopCartContextProvider({ children }: ShopCartContextProviderProps) {
     const [productsCart, setProductsCart] = useState<ProductTypeCart[] | []>([])
     const [totalProductsInCart, setTotalProductsInCart] = useState(0)
+
+    const [paymentSelected, setPaymentSelected] = useState<string | null>(null)
+
+    const [messagePaymentSelected, setMessagePaymentSelected] = useState("Não informado.");
 
     const shippingPrice = (3.5);
 
@@ -42,6 +49,26 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
 
         setTotalProductsInCart(total)
     }, [productsCart])
+
+    useEffect(() => {
+        switch (paymentSelected) {
+            case 'CREDIT_CARD':
+                setMessagePaymentSelected("Carão de Crédito")
+                break
+            case 'DEBIT_CARD':
+                setMessagePaymentSelected("Carão de Débito")
+                break
+            case 'MONEY':
+                setMessagePaymentSelected("Dinheiro")
+            default:
+                "Não informado."
+        }
+
+    }, [paymentSelected])
+
+    function handlePaymentOption(data: string) {
+        setPaymentSelected(data)
+    }
 
 
 
@@ -94,7 +121,17 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
 
 
     return (
-        <ShopCartContext.Provider value={{ productsCart, totalProductsInCart, shippingPrice, addProductsInCart, removeProductsInCart, deleteProductsInCart }}>
+        <ShopCartContext.Provider value={{
+            productsCart,
+            totalProductsInCart,
+            shippingPrice,
+            paymentSelected,
+            messagePaymentSelected,
+            addProductsInCart,
+            removeProductsInCart,
+            deleteProductsInCart,
+            handlePaymentOption
+        }}>
             {children}
         </ShopCartContext.Provider>
     )

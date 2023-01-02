@@ -37,8 +37,6 @@ export const Product = ({ id, description, img, price, tags, title }: ProductsTy
         } else {
             setQtdInCart(0)
         }
-
-        console.log(productsCart)
     }, [productsCart])
 
 

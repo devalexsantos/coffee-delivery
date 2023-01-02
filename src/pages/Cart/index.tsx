@@ -2,6 +2,7 @@ import axios from "axios"
 import { MapPinLine } from "phosphor-react"
 import { useContext, useState } from "react"
 import { EmptyCart } from "../../components/EmptyCart"
+import { PaymentInformations } from "../../components/PaymentInfo"
 import { ProductsIncart } from "../../components/ProductsInCart"
 import { ResumeTotal } from "../../components/ResumeTotal"
 import { AddressContext } from "../../contexts/AddressContext"
@@ -55,7 +56,7 @@ export const Cart = () => {
                                     type="text"
                                     value={address.zipCode}
                                     onChange={(e) => handleCepChangeValue(e.target.value)}
-                                    onBlur={(e) => getAddressByCep(e.target.value)}
+                                    onBlur={(e) => e.target.value && getAddressByCep(e.target.value)}
                                     className="cep-input"
                                     placeholder="CEP"
                                 />
@@ -121,7 +122,7 @@ export const Cart = () => {
 
                 <PaymentInfo>
                     <PaymentInfoContent>
-                        Informações de Pagamento
+                        <PaymentInformations />
                     </PaymentInfoContent>
                 </PaymentInfo>
             </LeftContainer>
