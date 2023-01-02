@@ -1,4 +1,5 @@
 import { BrowserRouter } from "react-router-dom"
+import { AddressContextProvider } from "./contexts/AddressContext"
 import { ShopCartContextProvider } from "./contexts/ShopCartContext"
 import { Router } from "./Router"
 import { GlobalStyle } from "./styles/global"
@@ -8,7 +9,9 @@ function App() {
   return (
     <BrowserRouter>
       <ShopCartContextProvider>
-        <Router />
+        <AddressContextProvider>
+          <Router />
+        </AddressContextProvider>
       </ShopCartContextProvider>
       <GlobalStyle />
     </BrowserRouter>

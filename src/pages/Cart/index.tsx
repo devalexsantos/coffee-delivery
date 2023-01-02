@@ -2,105 +2,27 @@ import axios from "axios"
 import { MapPinLine } from "phosphor-react"
 import { useContext, useState } from "react"
 import { ProductsIncart } from "../../components/ProductsInCart"
+import { AddressContext } from "../../contexts/AddressContext"
 import { ShopCartContext } from "../../contexts/ShopCartContext"
 import { AddressContainer, AddressContent, CartContainer, FormContainer, HeaderAddress, LeftContainer, PaymentInfo, PaymentInfoContent, ProductsContainer, ProductsContent } from "./style"
 
 
-interface AddressTypes {
-    logradouro: string
-    complemento: string
-    bairro: string
-    localidade: string
-    uf: string
-    erro: boolean
-}
-
 export const Cart = () => {
 
     const { productsCart } = useContext(ShopCartContext)
+    const { address, handleAddressChange, handleCepChange, fillAddress } = useContext(AddressContext)
 
     const [isLoadingSearchAddress, setIsLoadingSearchAddress] = useState(false)
 
-    const [haveDataAddress, setHaveDataAddress] = useState(false)
 
-    const [address, setAddress] = useState({
-        zipCode: "",
-        street: "",
-        streetNumber: "",
-        complement: "",
-        district: "",
-        city: "",
-        uf: ""
-    })
-
-    function handleCepChange(e: string) {
+    function handleCepChangeValue(e: string) {
         const notFormatedCep = e
 
         const formatedCep = notFormatedCep.replace(/\D/g, '')
             .replace(/(\d{5})(\d)/, '$1-$2')
             .replace(/(-\d{3})\d+?$/, '$1')
 
-        const newAddress = { ...address }
-
-        newAddress.zipCode = formatedCep
-
-        setAddress(newAddress)
-    }
-
-
-
-    function handleAddressChange(action: string, value: string) {
-        const newAddress = { ...address }
-
-        switch (action) {
-            case 'CHANGE_STREET':
-                newAddress.street = value
-                break
-
-            case 'CHANGE_STREET_NUMBER':
-                newAddress.streetNumber = value
-                break
-
-            case 'CHANGE_COMPLEMENT':
-                newAddress.complement = value
-                break
-
-            case 'CHANGE_DISTRICT':
-                newAddress.district = value
-                break
-
-            case 'CHANGE_CITY':
-                newAddress.city = value
-                break
-
-            case 'CHANGE_UF':
-                newAddress.uf = value
-                break
-
-            default:
-                newAddress
-        }
-
-        setAddress(newAddress)
-    }
-
-    function fillAddress(data: AddressTypes) {
-
-        if (data.erro) {
-            alert("Não localizamos seu CEP, por favor digite seu endereço completo ou tente outro CEP.")
-            return;
-        }
-
-        const newAddress = { ...address }
-
-        newAddress.street = data.logradouro
-        newAddress.complement = data.complemento
-        newAddress.district = data.bairro
-        newAddress.city = data.localidade
-        newAddress.uf = data.uf
-
-        setAddress(newAddress)
-
+        handleCepChange(formatedCep)
     }
 
     async function getAddressByCep(e: string) {
@@ -130,7 +52,7 @@ export const Cart = () => {
                                 <input
                                     type="text"
                                     value={address.zipCode}
-                                    onChange={(e) => handleCepChange(e.target.value)}
+                                    onChange={(e) => handleCepChangeValue(e.target.value)}
                                     onBlur={(e) => getAddressByCep(e.target.value)}
                                     className="cep-input"
                                     placeholder="CEP"
