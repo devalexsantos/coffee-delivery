@@ -50,11 +50,12 @@ export const PaymentInfoContainer = styled.div`
             line-height: 160%;
             text-transform: uppercase;
             color: #574F4D;
+            outline-color: #8047F8;
         }
 
         button:focus {
             background-color: #EBE5F9;
-            border: 1px solid #8047F8;
+            border: 2px solid #8047F8;
         }
     }
 

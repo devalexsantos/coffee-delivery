@@ -19,6 +19,7 @@ interface ShopCartContextTye {
     removeProductsInCart: (id: number) => void
     deleteProductsInCart: (id: number) => void
     handlePaymentOption: (data: 'CREDIT_CARD' | 'DEBIT_CARD' | 'MONEY') => void
+    resetCart: () => void
 }
 
 export const ShopCartContext = createContext({} as ShopCartContextTye)
@@ -53,10 +54,10 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
     useEffect(() => {
         switch (paymentSelected) {
             case 'CREDIT_CARD':
-                setMessagePaymentSelected("Carão de Crédito")
+                setMessagePaymentSelected("Cartão de Crédito")
                 break
             case 'DEBIT_CARD':
-                setMessagePaymentSelected("Carão de Débito")
+                setMessagePaymentSelected("Cartão de Débito")
                 break
             case 'MONEY':
                 setMessagePaymentSelected("Dinheiro")
@@ -119,6 +120,10 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
 
     }
 
+    function resetCart() {
+        setProductsCart([])
+    }
+
 
     return (
         <ShopCartContext.Provider value={{
@@ -130,7 +135,8 @@ export function ShopCartContextProvider({ children }: ShopCartContextProviderPro
             addProductsInCart,
             removeProductsInCart,
             deleteProductsInCart,
-            handlePaymentOption
+            handlePaymentOption,
+            resetCart
         }}>
             {children}
         </ShopCartContext.Provider>

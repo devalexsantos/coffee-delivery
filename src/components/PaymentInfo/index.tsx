@@ -5,7 +5,7 @@ import { PaymentInfoContainer } from "./style"
 
 export const PaymentInformations = () => {
 
-    const { handlePaymentOption, messagePaymentSelected } = useContext(ShopCartContext)
+    const { handlePaymentOption } = useContext(ShopCartContext)
 
     return (
         <PaymentInfoContainer>

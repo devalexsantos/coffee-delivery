@@ -1,21 +1,35 @@
 import { useContext, useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { AddressContext } from "../../contexts/AddressContext"
 import { ShopCartContext } from "../../contexts/ShopCartContext"
 import { ResumeItensContainer } from "./style"
 
 export const ResumeTotal = () => {
 
-    const { productsCart, shippingPrice, paymentSelected } = useContext(ShopCartContext)
+    const navigate = useNavigate();
+
+    const { productsCart, shippingPrice, paymentSelected, deleteProductsInCart, resetCart } = useContext(ShopCartContext)
+    const { address } = useContext(AddressContext)
 
     const [totalPriceItes, setTotalPriceItens] = useState(0)
     const [totalPurchase, setTotalPurchase] = useState(0)
 
-    function handleConfirmPayment() {
+    function handleConfirmRequest() {
         if (paymentSelected === null) {
-            alert("Por favor selecione um método de pagamento.")
-        } else {
-            alert("Método de pagamento selecionado: " + paymentSelected)
+            alert("Por favor selecione uma forma de pagamento.")
+            return
         }
+
+        if (address.zipCode === "" || address.city === "" || address.district === "" || address.street === "" || address.streetNumber === "" || address.uf === "") {
+            alert("Por favor preencha as informações de entrega obrigatórias: CEP, Cidade, Bairro, Rua, Número e UF.")
+            return
+        }
+
+        resetCart()
+        navigate("/request")
+
     }
+
 
     useEffect(() => {
         let newTotalPrice = 0
@@ -44,12 +58,9 @@ export const ResumeTotal = () => {
                 <span className="total">Total</span>
                 <span className="total">{totalPurchase.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
             </div>
-            <button onClick={handleConfirmPayment}>
+            <button onClick={(e) => handleConfirmRequest()}>
                 Confirmar Pedido
             </button>
         </ResumeItensContainer>
     )
 }
-
-
-// {totalPriceItes.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
