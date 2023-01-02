@@ -12,11 +12,16 @@ interface AddressTypes {
     bairro: string
     localidade: string
     uf: string
+    erro: boolean
 }
 
 export const Cart = () => {
 
     const { productsCart } = useContext(ShopCartContext)
+
+    const [isLoadingSearchAddress, setIsLoadingSearchAddress] = useState(false)
+
+    const [haveDataAddress, setHaveDataAddress] = useState(false)
 
     const [address, setAddress] = useState({
         zipCode: "",
@@ -80,6 +85,12 @@ export const Cart = () => {
     }
 
     function fillAddress(data: AddressTypes) {
+
+        if (data.erro) {
+            alert("Não localizamos seu CEP, por favor digite seu endereço completo ou tente outro CEP.")
+            return;
+        }
+
         const newAddress = { ...address }
 
         newAddress.street = data.logradouro
@@ -92,9 +103,12 @@ export const Cart = () => {
 
     }
 
-    function getAddressByCep(e: string) {
-        axios.get(`https://viacep.com.br/ws/${e.replace(/\D/g, '')}/json/`)
+    async function getAddressByCep(e: string) {
+        setIsLoadingSearchAddress(true)
+        await axios.get(`https://viacep.com.br/ws/${e.replace(/\D/g, '')}/json/`)
             .then(result => fillAddress(result.data))
+            .catch(err => console.log(err))
+        setIsLoadingSearchAddress(false)
     }
 
 
@@ -113,17 +127,67 @@ export const Cart = () => {
                         </HeaderAddress>
                         <FormContainer>
                             <form>
-                                <input onChange={(e) => handleCepChange(e.target.value)} onBlur={(e) => getAddressByCep(e.target.value)} value={address.zipCode} className="cep-input" type="text" placeholder="CEP" />
+                                <input
+                                    type="text"
+                                    value={address.zipCode}
+                                    onChange={(e) => handleCepChange(e.target.value)}
+                                    onBlur={(e) => getAddressByCep(e.target.value)}
+                                    className="cep-input"
+                                    placeholder="CEP"
+                                />
+
                                 <div className="address-info">
-                                    <input onChange={(e) => handleAddressChange('CHANGE_STREET', e.target.value)} className="street-info" type="text" placeholder="Rua" value={address.street} />
+                                    <input
+                                        type="text"
+                                        value={isLoadingSearchAddress ? 'Buscando...' : address.street}
+                                        onChange={(e) => handleAddressChange('CHANGE_STREET', e.target.value)}
+                                        disabled={isLoadingSearchAddress}
+                                        className="street-info"
+                                        placeholder="Rua"
+                                    />
                                     <div className="number-and-complement">
-                                        <input onChange={(e) => handleAddressChange('CHANGE_STREET_NUMBER', e.target.value)} className="number-info" type="text" placeholder="Número" value={address.streetNumber} />
-                                        <input onChange={(e) => handleAddressChange('CHANGE_COMPLEMENT', e.target.value)} className="complement-info" type="text" placeholder="Complemento" value={address.complement} />
+                                        <input
+                                            type="text"
+                                            value={isLoadingSearchAddress ? 'Buscando...' : address.streetNumber}
+                                            onChange={(e) => handleAddressChange('CHANGE_STREET_NUMBER', e.target.value)}
+                                            disabled={isLoadingSearchAddress}
+                                            className="number-info"
+                                            placeholder="Número"
+                                        />
+                                        <input
+                                            type="text"
+                                            value={isLoadingSearchAddress ? 'Buscando...' : address.complement}
+                                            onChange={(e) => handleAddressChange('CHANGE_COMPLEMENT', e.target.value)}
+                                            disabled={isLoadingSearchAddress}
+                                            className="complement-info"
+                                            placeholder="Complemento"
+                                        />
                                     </div>
                                     <div className="district-city-uf">
-                                        <input onChange={(e) => handleAddressChange('CHANGE_DISTRICT', e.target.value)} className="distric-info" type="text" placeholder="Bairro" value={address.district} />
-                                        <input onChange={(e) => handleAddressChange('CHANGE_CITY', e.target.value)} className="city-info" type="text" placeholder="Cidade" value={address.city} />
-                                        <input onChange={(e) => handleAddressChange('CHANGE_UF', e.target.value)} className="uf-info" type="text" placeholder="UF" value={address.uf} />
+                                        <input
+                                            type="text"
+                                            value={isLoadingSearchAddress ? 'Buscando...' : address.district}
+                                            onChange={(e) => handleAddressChange('CHANGE_DISTRICT', e.target.value)}
+                                            disabled={isLoadingSearchAddress}
+                                            className="distric-info"
+                                            placeholder="Bairro"
+                                        />
+                                        <input
+                                            value={isLoadingSearchAddress ? 'Buscando...' : address.city}
+                                            onChange={(e) => handleAddressChange('CHANGE_CITY', e.target.value)}
+                                            disabled={isLoadingSearchAddress}
+                                            className="city-info"
+                                            type="text"
+                                            placeholder="Cidade"
+                                        />
+                                        <input
+                                            value={isLoadingSearchAddress ? 'Buscando...' : address.uf}
+                                            onChange={(e) => handleAddressChange('CHANGE_UF', e.target.value)}
+                                            className="uf-info"
+                                            type="text"
+                                            placeholder="UF"
+                                            disabled={isLoadingSearchAddress}
+                                        />
                                     </div>
                                 </div>
                             </form>
