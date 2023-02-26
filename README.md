@@ -4,7 +4,7 @@
 
 <div align="center">
   <h3> 🚧 Produção 🚀 </h3>
-  <strong><a href="https://catalogo-de-produtos-imall071.vercel.app/">🔗 Visualize o projeto clicando aqui</a></strong>
+  <strong><a href="https://coffee-delivery-ashen.vercel.app/" target="_blank">🔗 Visualize o projeto clicando aqui</a></strong>
 </div>
 
 # Sumário
@@ -45,7 +45,7 @@ As ferramentas utilizadas foram:
 
 <div align="center">
   <h3> 🚧 Produção 🚀 </h3>
-  <strong><a href="https://catalogo-de-produtos-imall071.vercel.app/">🔗 Visualize o projeto clicando aqui</a></strong>
+  <strong><a href="https://coffee-delivery-ashen.vercel.app/" target="_blank">🔗 Visualize o projeto clicando aqui</a></strong>
 </div>
 
 <a id="autor"></a>
